@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    .chat-container {
+      width: 80%;
+      margin: 20px auto;
+      background: #1e1e1e;
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .message {
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      background-color: #2c2c2c;
+    }
+    .message.admin {
+      color: #ffcc00;
+      font-weight: bold;
+    }
+    button {
+      color: white;
+      background: #3e3e3e;
+      border: none;
+      padding: 5px 10px;
+      margin-left: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div id="messages"></div>
+    <textarea id="messageInput" placeholder="Type your message..."></textarea>
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    const username = localStorage.getItem('chatUsername') || 'User' + Math.floor(Math.random() * 1000);
+    const messages = document.getElementById('messages');
+
+    function sendMessage() {
+      const input = document.getElementById('messageInput');
+      const messageText = input.value.trim();
+      if (messageText) {
+        const message = document.createElement('div');
+        message.className = 'message';
+        message.innerHTML = `<strong>${username}:</strong> ${messageText}`;
+        messages.appendChild(message);
+        input.value = '';
+      }
+    }
+  </script>
+</body>
+</html>
