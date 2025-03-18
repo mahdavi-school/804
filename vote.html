@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظرسنجی</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+            margin: 20px;
+        }
+        .poll {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>نظرسنجی‌ها</h1>
+    <div id="pollsContainer"></div>
+
+    <script>
+        // دریافت نظرسنجی‌ها از سرور
+        async function fetchPolls() {
+            try {
+                const response = await fetch('http://localhost:5000/polls');
+                const polls = await response.json();
+                displayPolls(polls);
+            } catch (error) {
+                console.error('خطا در دریافت نظرسنجی‌ها:', error);
+            }
+        }
+
+        // نمایش نظرسنجی‌ها
+        function displayPolls(polls) {
+            const pollsContainer = document.getElementById('pollsContainer');
+            pollsContainer.innerHTML = '';
+
+            polls.forEach(poll => {
+                const pollDiv = document.createElement('div');
+                pollDiv.className = 'poll';
+                pollDiv.innerHTML = `
+                    <h3>${poll.title}</h3>
+                    ${poll.options.map((option, index) => `
+                        <div>
+                            <label>
+                                <input type="radio" name="poll_${poll._id}" value="${index}">
+                                ${option.text} (${option.votes} رأی)
+                            </label>
+                        </div>
+                    `).join('')}
+                    <button onclick="submitVote('${poll._id}')">ثبت رأی</button>
+                `;
+                pollsContainer.appendChild(pollDiv);
+            });
+        }
+
+        // ارسال رأی به سرور
+        async function submitVote(pollId) {
+            const selectedOption = document.querySelector(`input[name="poll_${pollId}"]:checked`);
+            if (!selectedOption) {
+                alert('لطفاً یکی از گزینه‌ها را انتخاب کنید.');
+                return;
+            }
+
+            const optionIndex = selectedOption.value;
+
+            try {
+                const response = await fetch(`http://localhost:5000/vote/${pollId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ optionIndex: parseInt(optionIndex, 10) }),
+                });
+
+                if (response.ok) {
+                    alert('رأی شما ثبت شد!');
+                    fetchPolls(); // به‌روزرسانی لیست نظرسنجی‌ها
+                } else {
+                    alert('خطا در ثبت رأی.');
+                }
+            } catch (error) {
+                console.error('خطا در ثبت رأی:', error);
+            }
+        }
+
+        // دریافت و نمایش نظرسنجی‌ها در بارگذاری اولیه صفحه
+        fetchPolls();
+    </script>
+</body>
+</html>

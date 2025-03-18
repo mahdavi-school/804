@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درفت فوتبال</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #1e1e1e; color: white; }
+        .formation-selection { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .formation-card { background: #444; padding: 20px; border-radius: 10px; cursor: pointer; transition: 0.3s; font-weight: bold; }
+        .formation-card:hover { background: #666; }
+        .field-container { display: flex; justify-content: center; margin-top: 20px; }
+        .field { display: grid; gap: 10px; }
+        .row { display: flex; justify-content: center; gap: 10px; }
+        .player-card { width: 100px; height: 140px; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 14px; font-weight: bold; cursor: pointer; border: 2px solid #fff; transition: 0.3s; background: gray; }
+        .player-card.selected { pointer-events: none; } 
+        .gray { background: gray; }
+        .green { background: green; }
+        .blue { background: blue; }
+        .purple { background: purple; }
+        .gold { background: gold; }
+        .mythic { background: linear-gradient(45deg, gold, red); color: black; }
+        .team-summary { background: rgba(0,0,0,0.8); padding: 20px; border-radius: 10px; display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .close-btn { background: red; color: white; padding: 5px 10px; cursor: pointer; border-radius: 5px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>درفت فوتبال</h1>
+    <div class="formation-selection">
+        <div class="formation-card" onclick="startDraft('433')">۴-۳-۳</div>
+        <div class="formation-card" onclick="startDraft('442')">۴-۴-۲</div>
+        <div class="formation-card" onclick="startDraft('352')">۳-۵-۲</div>
+    </div>
+
+    <div class="field-container">
+        <div id="field" class="field"></div>
+    </div>
+
+    <div id="team-summary" class="team-summary">
+        <h2>میانگین تیم: <span id="team-average"></span></h2>
+        <div class="close-btn" onclick="closeSummary()">بستن</div>
+    </div>
+
+    <script>
+        const players = [
+            { name: "محمد ضیا الدینی", range: [95, 100] },
+            { name: "حسن طهمورسی", range: [70, 80] },
+            { name: "علی عرب نزاد", range: [75, 85] },
+            { name: "ارشیا عزیززاده", range: [94, 99] },
+            { name: "بردیا عسکریان ", range: [90, 95] },
+            { name: "محمد مهدی علیزاده ", range: [85, 92] },
+            { name: "حسن فدایی", range: [95, 100] },
+            { name: "سپهر فکوری", range: [90, 95] },
+            { name: "قرایی", range: [90, 95] },
+            { name: "حسین قربانی", range: [75, 85] },
+            { name: "امیرعباس قطبی", range: [75, 85] },
+            { name: "پارسا قنبری", range: [90, 100] },
+            { name: "کیان کاراموزیان", range: [85, 95] },
+            { name: "ابوالفضل کارگر", range: [75, 90] },
+            { name: "ابتین کاظمی", range: [90, 98] },
+            { name: "علی کروکی", range: [75, 85] },
+            { name: "علیرضا کریمی", range: [75, 85] },
+            { name: "رادین کوشش", range: [75, 85] },
+            { name: "محمدمهدی کهندل", range: [85, 95] },
+            { name: "مهراد گرگانی", range: [90, 95] },
+            { name: "ارشام لاری", range: [85, 92] },
+            { name: "امین مالکی", range: [75, 85] },
+            { name: "رادین محسنی", range: [85, 95] },
+            { name: "متین محمدی", range: [85, 95] },
+            { name: "سام محمودی", range: [85, 92] },
+           
+        ];
+
+        let selectedPlayers = [];
+
+        const formations = {
+            "433": [
+                ["ST"], ["LW", "RW"], ["CM", "CM", "CDM"], ["LB", "CB", "CB", "RB"], ["GK"], ["SUB", "SUB", "SUB"]
+            ],
+            "442": [
+                ["ST", "ST"], ["LM", "CM", "CM", "RM"], ["LB", "CB", "CB", "RB"], ["GK"], ["SUB", "SUB", "SUB"]
+            ],
+            "352": [
+                ["ST", "ST"], ["CAM", "CM", "CM", "CDM"], ["LWB", "CB", "CB", "CB", "RWB"], ["GK"], ["SUB", "SUB", "SUB"]
+            ]
+        };
+
+        function startDraft(formation) {
+            let field = document.getElementById("field");
+            field.innerHTML = "";
+            selectedPlayers = [];
+
+            formations[formation].forEach(row => {
+                let rowDiv = document.createElement("div");
+                rowDiv.classList.add("row");
+
+                row.forEach(position => {
+                    let card = document.createElement("div");
+                    card.classList.add("player-card", "gray");
+                    card.innerText = position;
+                    card.onclick = () => selectPlayer(card, position);
+                    rowDiv.appendChild(card);
+                });
+
+                field.appendChild(rowDiv);
+            });
+        }
+
+        function selectPlayer(card, position) {
+            if (card.classList.contains("selected")) return;
+
+            let availablePlayers = players.filter(p => !selectedPlayers.includes(p.name));
+            if (availablePlayers.length === 0) return;
+
+            let randomPlayer = availablePlayers[Math.floor(Math.random() * availablePlayers.length)];
+            let overall = Math.floor(Math.random() * (randomPlayer.range[1] - randomPlayer.range[0] + 1)) + randomPlayer.range[0];
+            let colorClass = getColorClass(overall);
+
+            card.innerHTML = `<b>${randomPlayer.name}</b><br><small>${position}</small><br>${overall}`;
+            card.className = `player-card ${colorClass} selected`;
+            selectedPlayers.push(randomPlayer.name);
+
+            if (selectedPlayers.length === 14) showTeamSummary();
+        }
+
+        function getColorClass(overall) {
+            if (overall < 75) return "gray";
+            if (overall < 85) return "green";
+            if (overall < 90) return "blue";
+            if (overall < 95) return "purple";
+            if (overall < 100) return "gold";
+            return "mythic";
+        }
+
+        function showTeamSummary() {
+            let total = selectedPlayers.length;
+            let avg = total > 0 ? Math.floor(Math.random() * (95 - 85 + 1)) + 85 : 0;
+            document.getElementById("team-average").innerText = avg;
+            document.getElementById("team-summary").style.display = "block";
+        }
+
+        function closeSummary() {
+            document.getElementById("team-summary").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

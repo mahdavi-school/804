@@ -1,0 +1,115 @@
+@font-face {
+    font-family: "Vazir-FD-WOL.woff";
+    src: url(../font/Vazir-FD-WOL.woff);
+}
+body {
+    font-family: "Vazir-FD-WOL.woff";
+    background-image: url("back.jpg");
+    text-align: center;
+}
+
+.formation-card {
+    border: 2px solid #ccc;
+    border-radius: 15px; /* تنظیم گوشه‌های گرد */
+    width: 250px; /* تنظیم عرض مستطیل */
+    height: 300px; /* تنظیم ارتفاع مستطیل */
+    padding: 10px;
+    background-color: aqua;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+    display: inline-block; /* نمایش مستطیل‌ها کنار هم */
+}
+
+.formation-card img {
+    width: 90%;
+    height: 85%; /* تنظیم ارتفاع تصاویر */
+    border-radius: 5px;
+    object-fit: cover; /* تنظیم تناسب تصاویر */
+}
+
+.card {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    width: 150px;
+    height: 250px; /* افزایش ارتفاع کارت‌ها */
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.card img {
+    width: 100%;
+    height: 100px; /* تنظیم ارتفاع تصاویر */
+    border-radius: 5px;
+}
+
+.card .player-info {
+    font-size: 14px; /* تنظیم اندازه فونت برای متن‌ها */
+}
+
+.formation {
+    background: url('football_pitch.png') no-repeat center center/cover;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    gap: 10px;
+    justify-content: center;
+    padding: 20px;
+    height: 600px;
+}
+
+.hidden {
+    display: none;
+}
+
+.result-card {
+    background-color: #0044cc;
+    color: white;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    width: 300px;
+    height: 150px;
+    padding: 10px;
+    margin: 10px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 2em;
+    line-height: 130px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: white;
+    color: #0044cc;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.close-button:hover {
+    background-color: #0044cc;
+    color: white;
+}
+
+.card.gold { background-color: gold; }
+.card.purple { background-color: #800080; }
+.card.blue { background-color: #0000FF; }
+.card.green { background-color: #008000; }
+.card.dark-grey { background-color: #A9A9A9; }
+.card.light-grey { background-color: #D3D3D3; }
+.card.mtk{ background-color: #e2e086; }

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./main_css.css">
+    <link rel="stylesheet" href="./bootstap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>ورود به کلاس</title>
+    <style>
+        .body_c {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* height: 100vh;
+            margin: 0; */
+            direction: rtl;
+        }
+        #login-container {
+            background-color: aquamarine;
+            border: 1px solid #b5ddfd;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .input-group {
+            margin-bottom: 15px;
+            width: 300;
+            height: 70px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        #login-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(230, 0, 255);">
+    <div id="backgrand_heder">
+
+        <!-- <header>
+     <nav>
+        <li>
+            
+            <img src="../../Bazi_Dooni_Icon_512x512.png" alt="" class="logo">
+            <div class="vorod">
+        <a href="" >ورود</a>
+    </div>
+    </li>
+    </nav>
+        </header> -->
+        <nav class="navbar navbar-expand-lg backgrand_heder">
+
+            <div class="container" >
+            <!-- <a href="" class="navbar-brand"><img src="./asset/person-fill.svg" alt=""></a> -->
+            <a style=" font-size: x-large; color: rgb(0, 0, 0);" href="" class="navbar-brand"><i class="bi bi-person"></i></a>
+           <A class="navbbar-band" type="button" data-bs-target="#navmenu" style=" font-size: x-large; color: rgb(0, 0, 0);"><i class="bi bi-list-ul"></i></A>
+            <div class="collapse-navbar-collapse" id="navmenu"></div>
+            <ul class="navbar-nav ms-auto">
+            
+              
+                
+                <li class="nav-item " style="text-align: center;">
+                
+       <img src="./icone.jpg"  class="logo">
+    </li>
+   
+   </ul>
+            <!-- <ul class="navbar-nav ms-auto" style="text-align: center; " >
+                <li class="nav-item " style="text-align: center;">
+                  
+                </li>
+            </ul> -->
+            </div>
+        </nav>
+    </div>
+   
+  <div style="background-color: rgb(244, 127, 255); text-align: center;  width: 40%; border-radius: 30px; margin-left: 30%;">
+    <p style="font-size: x-large;">کلاس 804</p>
+    </div>
+        <!-- <ul class="navbar-nav ms-auto" style="text-align: center; " >
+            <li class="nav-item " style="text-align: center;">
+              
+            </li>
+        </ul> -->
+<!-- <div style="background-color: rgb(244, 127, 255); text-align: center;  width: 40%; border-radius: 30px; margin-left: 30%;">
+<p style="font-size: x-large;">کلاس 804</p> -->
+<!-- <h1 style="text-align: center; color: darkviolet;">به سایت کلاس 804 خوش امدی</h1> -->
+<p></p>
+<hr>
+   <div class="body_c"> 
+    <div id="login-container">
+        <div class="input-group">
+            <label  for="student-number">شماره لیست دانش‌آموزی:</label>
+            <select id="student-number">
+                <option value="">شماره خود را انتخاب کنید</option>
+                <!-- Dynamically create options from 1 to 26 -->
+                <script>
+                    for (var i = 1; i <= 26; i++) {
+                        document.write('<option value="' + i + '">' + i + '</option>');
+                    }
+                </script>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="password">رمز عبور:</label>
+            <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید">
+        </div>
+        <button id="login-btn" style="background-color: cornflowerblue;">ورود</button>
+    </div>
+</div>
+    <script>
+        // آرایه‌ای برای ذخیره رمز عبور هر دانش‌آموز
+        var passwords = [
+            "mamdz1583761", "hsnt1423658", "arb11358547", "afi15521", "aht156214",
+            "advs1895223", "acf15224522", "ghj985521", "hgcd58952", "ahad22596226",
+            "ammdu158615", "ksfh215623", "lhsf4521563", "axg123556", "ash135859",
+            "ght24552552", "agf5185222", "afh52221255", "afad25879884", "amirali138985",
+            "af12557885", "tec1682545", "asf12554578", "afsf7518514", "afjf8554552",
+            "asy2585521"
+        ];
+
+        document.getElementById('login-btn').addEventListener('click', function() {
+            var studentNumber = document.getElementById('student-number').value;
+            var password = document.getElementById('password').value;
+
+            if (studentNumber && password) {
+                // بررسی رمز عبور
+                if (password === passwords[studentNumber - 1]) {
+                    // ذخیره شماره دانش‌آموز در localStorage
+                    localStorage.setItem('studentNumber', studentNumber);
+
+                    // انتقال به صفحه اصلی
+                    window.location.href = 'index-main.html';
+                } else {
+                    alert('رمز عبور نادرست است.');
+                }
+            } else {
+                alert('لطفاً شماره دانش‌آموز و رمز عبور را وارد کنید.');
+            }
+        });
+    </script>
+</body>
+</html>

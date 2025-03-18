@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>بازی پوکر</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        .table {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+        .player-hand, .dealer-hand, .community-cards {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+        .card {
+            width: 70px;
+            height: 100px;
+            border: 1px solid #000;
+            border-radius: 10px;
+            margin: 0 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            color: #000;
+            font-size: 14px;
+            background-size: cover;
+            position: relative;
+        }
+        .card span {
+            position: absolute;
+            bottom: 5px;
+            font-size: 12px;
+        }
+        .Hearts, .Diamonds {
+            color: red;
+        }
+        .Clubs, .Spades {
+            color: black;
+        }
+        .player-info, .pot-info {
+            text-align: left;
+            margin: 10px;
+        }
+        .bet-controls {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>بازی پوکر</h1>
+    <div class="table">
+        <div class="player-info">
+            <div>بازیکن 1</div>
+            <div>کوین‌ها: <span id="player-coins">10000</span></div>
+            <div class="bet-controls">
+                <button onclick="bet('player')">شرط</button>
+                <input type="number" id="raise-amount-player" min="100" step="100" value="200">
+                <button onclick="raise('player')">افزایش شرط</button>
+                <button onclick="fold('player')">فولد</button>
+            </div>
+        </div>
+        <div class="player-hand" id="player-hand"></div>
+        <div class="community-cards" id="community-cards"></div>
+        <div class="pot-info">پات: <span id="pot">0</span></div>
+        <div class="player-hand" id="dealer-hand"></div>
+        <div class="player-info">
+            <div>دیلر</div>
+            <div>کوین‌ها: <span id="dealer-coins">10000</span></div>
+            <div class="bet-controls">
+                <button onclick="bet('dealer')">شرط</button>
+                <input type="number" id="raise-amount-dealer" min="100" step="100" value="200">
+                <button onclick="raise('dealer')">افزایش شرط</button>
+                <button onclick="fold('dealer')">فولد</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
+        const values = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
+        const rankOrder = ["High Card", "One Pair", "Two Pair", "Three of a Kind", "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush", "Royal Flush"];
+        let deck = [];
+        let playerCoins = 10000;
+        let dealerCoins = 10000;
+        let pot = 0;
+        const smallBlind = 50;
+        const bigBlind = 100;
+        let currentPlayer = 'player';
+
+        function createDeck() {
+            deck = [];
+            for (let suit of suits) {
+                for (let value of values) {
+                    deck.push({suit, value, image: `images/${value}_of_${suit}.png`});
+                }
+            }
+        }
+
+        function shuffleDeck() {
+            for (let i = deck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [deck[i], deck[j]] = [deck[j], deck[i]];
+            }
+        }
+
+        function dealCards() {
+            const playerHand = document.getElementById("player-hand");
+            const dealerHand = document.getElementById("dealer-hand");
+            const communityCards = document.getElementById("community-cards");
+            playerHand.innerHTML = "";
+            dealerHand.innerHTML = "";
+            communityCards.innerHTML = "";
+
+            let playerHandCards = [];
+            let dealerHandCards = [];
+
+            for (let i = 0; i < 2; i++) {
+                const playerCard = deck.pop();
+                const dealerCard = deck.pop();
+                playerHand.innerHTML += `<div class="card ${playerCard.suit}" style="background-image: url(${playerCard.image})"><span>${playerCard.value} of ${playerCard.suit}</span></div>`;
+                dealerHand.innerHTML += `<div class="card ${dealerCard.suit}" style="background-image: url(${dealerCard.image})"><span>${dealerCard.value} of ${dealerCard.suit}</span></div>`;
+                playerHandCards.push(playerCard);
+                dealerHandCards.push(dealerCard);
+            }
+
+            setTimeout(revealCommunityCard, 1000);
+        }
+
+        function revealCommunityCard() {
+            const communityCards = document.getElementById("community-cards");
+            const communityCard = deck.pop();
+            communityCards.innerHTML += `<div class="card ${communityCard.suit}" style="background-image: url(${communityCard.image})"><span>${communityCard.value} of ${communityCard.suit}</span></div>`;
+        }
+
+        function evaluateHand(hand) {
+            const valueCount = {};
+            hand.forEach(card => {
+                valueCount[card.value] = (valueCount[card.value] || 0) + 1;
+            });
+
+            if (Object.values(valueCount).includes(4)) {
+                return "Four of a Kind";
+            } else if (Object.values(valueCount).includes(3)) {
+                if (Object.values(valueCount).includes(2)) {
+                    return "Full House";
+                } else {
+                    return "Three of a Kind";
+                }
+            } else if (Object.values(valueCount).includes(2)) {
+                if (Object.values(valueCount).filter(count => count === 2).length === 2) {
+                    return "Two Pair";
+                } else {
+                    return "One Pair";
+                }
+            } else {
+                return "High Card";
+            }
+        }
+
+        function evaluateAndDisplayHands(playerHand, dealerHand) {
+            const playerHandResult = evaluateHand(playerHand);
+            const dealerHandResult = evaluateHand(dealerHand);
+            alert(`Player hand: ${playerHandResult}\nDealer hand: ${dealerHandResult}`);
+
+            if (playerHandResult > dealerHandResult) {
+                playerCoins += pot;
+                pot = 0;
+                updateCoins();
+            } else if (playerHandResult < dealerHandResult) {
+                dealerCoins += pot;
+                pot = 0;
+                updateCoins();
+            } else {
+                alert("این یک تساوی است!");
+                playerCoins += pot / 2;
+                dealerCoins += pot / 2;
+                pot = 0;
+                updateCoins();
+            }
+        }
+
+        function startGame() {
+            createDeck();
+            shuffleDeck();
+            dealCards();
+            initialBets();
+        }
+
+        function initialBets() {
+            playerCoins -= smallBlind;
+            dealerCoins -= bigBlind;
+            pot += smallBlind + bigBlind;
+            updateCoins();
+        }
+
+        function bet(player) {
+            const betAmount = 100;
+            if (player === 'player' && playerCoins >= betAmount) {
+                playerCoins -= betAmount;
+                pot += betAmount;
+            } else if (player === 'dealer' && dealerCoins >= betAmount) {
+                dealerCoins -= betAmount;
+                pot += betAmount;
+            } else {
+                alert("کوین کافی برای شرط‌بندی وجود ندارد!");
+            }
+            updateCoins();
+            currentPlayer = player === 'player' ? 'dealer' : 'player';
+        }
+
+        function raise(player) {
+            const raiseAmount = document.getElementById(`raise-amount-${player}`).value;
+            if (player === 'player' && playerCoins >= raiseAmount) {
+                playerCoins -= raiseAmount;
+                pot += raiseAmount;
+            } else if (player === 'dealer' && dealerCoins >= raiseAmount) {
+                dealerCoins -= raiseAmount;
+                pot += raiseAmount;
+            } else {
+                alert("کوین کافی برای افزایش شرط وجود ندارد!");
+            }
+            updateCoins();
+            currentPlayer = player === 'player' ? 'dealer' : 'player';
+        }
+
+        function fold(player) {
+            if (player === 'player') {
+                alert("بازیکن 1 فولد کرد!");
+                dealerCoins += pot;
+            } else if (player === 'dealer') {
+                function fold(player) {
+            if (player === 'player') {
+                alert("بازیکن 1 فولد کرد!");
+                dealerCoins += pot;
+            } else if (player === 'dealer') {
+                alert("دیلر فولد کرد!");
+                playerCoins += pot;
+            }
+            pot = 0;
+            updateCoins();
+            setTimeout(startGame, 1000);
+        }
+
+        function updateCoins() {
+            document.getElementById("player-coins").innerText = playerCoins;
+            document.getElementById("dealer-coins").innerText = dealerCoins;
+            document.getElementById("pot").innerText = pot;
+        }
+
+        function nextStep() {
+            if (currentPlayer === 'player') {
+                currentPlayer = 'dealer';
+            } else {
+                currentPlayer = 'player';
+            }
+        }
+
+        startGame();
+    </script>
+</body>
+</html>

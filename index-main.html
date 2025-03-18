@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./main_css.css">
+ <link rel="stylesheet" href="./bootstap/bootstrap.min.css">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="body">
+    <div id="backgrand_heder">
+
+        <!-- <header>
+     <nav>
+        <li>
+            
+            <img src="../../Bazi_Dooni_Icon_512x512.png" alt="" class="logo">
+            <div class="vorod">
+        <a href="" >ورود</a>
+    </div>
+    </li>
+    </nav>
+        </header> -->
+        <nav class="navbar navbar-expand-lg backgrand_heder">
+
+            <div class="container" >
+            <!-- <a href="" class="navbar-brand"><img src="./asset/person-fill.svg" alt=""></a> -->
+            <a style=" font-size: x-large; color: rgb(0, 0, 0);" href="" class="navbar-brand"><i class="bi bi-person"></i></a>
+           <A class="navbbar-band" type="button" data-bs-target="#navmenu" style=" font-size: x-large; color: rgb(0, 0, 0);"><i class="bi bi-list-ul"></i></A>
+            <div class="collapse-navbar-collapse" id="navmenu"></div>
+            <ul class="navbar-nav ms-auto">
+            
+              
+                
+                <li class="nav-item " style="text-align: center;">
+                
+       <img src="./icone.jpg"  class="logo">
+    </li>
+   
+   </ul>
+            <!-- <ul class="navbar-nav ms-auto" style="text-align: center; " >
+                <li class="nav-item " style="text-align: center;">
+                  
+                </li>
+            </ul> -->
+            </div>
+        </nav>
+    </div>
+   
+  <div style="background-color: rgb(244, 127, 255); text-align: center;  width: 40%; border-radius: 30px; margin-left: 30%;">
+    <p style="font-size: x-large;">کلاس 804</p>
+    
+  </div>
+  <h1 class="vorod"><span id="student-name"></span></h1>
+<hr>
+
+    <section class="p-5 ">
+        <div class="container" >
+            <div class="row text-center fontabc">
+                <div class="col">
+                    <div class="card  text-light" style="border-radius: 25px;">
+                    <a href="./games-main.html"> <div class="card-body cards text-center">
+                            <div class="h3 mb3">
+                                <i class="bi bi-joystick"></i>
+                            </div>
+                            <h5 class="">بازی ها</h5> 
+                           
+                        </div></a>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card  text-light" style="border-radius: 25px;">
+                      <a href="./chat.html" onclick="goToChat">  <div class="card-body cards text-center">
+                            <div class="h3 mb3">
+                                <i class="bi bi-chat"></i>
+                            </div>
+                            <h5 class="">چت انلاین</h5>
+                         </div> </a>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card  text-light" style="border-radius: 25px;">
+                     <a href="">   <div class="card-body cards text-center">
+                            <div class="h3 mb3">
+                                <i class="bi bi-journal-text"></i>
+                            </div>
+                            <h5 class="card-title">مشق ها</h5>
+                            
+                        </div></a>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card  text-light" style="border-radius: 25px;">
+                       <a href=""> <div class="card-body cards text-center">
+                            <div class="h3 mb3">
+                                <i class="bi bi-chat-left-dots"></i>
+                            </div>
+                            <h5 class="card-title">نظرسنجی</h5>
+                            
+                        </div></a>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card  text-light" style="border-radius: 25px;">
+                       <a href=""> <div class="card-body cards text-center">
+                            <div class="h3 mb3">
+                                <i class="bi bi-calendar-week"></i>
+                            </div>
+                            <h5 class="card-title">برنامه هفته</h5>
+                            
+                        </div></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <footer class="foter">
+<div style="color: white;">
+    <h2 >تماس با ما</h2>
+    <p>ایمیل:amiralig13899@gmail.com</p>
+    <p>پیامک:09226587750</p>
+    <h2>مجوز ها</h2>
+    <p>تمامی حقوق این سایت متعلق به امیرعلی گرانمایه می باشد.</p>
+</div>
+    </footer> -->
+   <hr>
+    <h2 style="text-align: center; border-radius: 20px; ">اطلاعیه ها</h2>
+    <div class="slider">
+        <div class="slides">
+          <div class="slide" style="border-radius: 20px;"><img src="./ghavanen.png" alt="تصویر 1"></div>
+          <div class="slide" style="border-radius: 20px;"><img src="./no idea.png" alt="تصویر 2"></div>
+          <div class="slide" style="border-radius: 20px;"><img src="./no idea.png" alt="تصویر 3"></div>
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      </div>
+      <hr>
+      <style>
+        .slider {
+          position: relative;
+          max-width: 70%;
+          margin: auto;
+        }
+        .slides {
+          display: flex;
+          overflow: hidden;
+          justify-content: center;
+          align-items: center;
+        }
+        .slide {
+          min-width: 100%;
+          transition: 0.5s;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .slide img {
+          max-width: 100%;
+          max-height: 80vh;
+        }
+        .prev, .next {
+          cursor: pointer;
+          position: absolute;
+          top: 50%;
+          width: auto;
+          padding: 16px;
+          margin-top: -22px;
+          color: white;
+          font-weight: bold;
+          font-size: 18px;
+          transition: 0.6s ease;
+          border-radius: 0 3px 3px 0;
+          user-select: none;
+        }
+        .next {
+          right: 0;
+          border-radius: 3px 0 0 3px;
+        }
+        .prev:hover, .next:hover {
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+        @media (max-width: 768px) {
+          .slider {
+            max-width: 100%;
+          }
+          .slide img {
+            max-height: 60vh;
+          }
+        }
+      </style>
+      <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+      
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+      
+        function showSlides(n) {
+          let i;
+          let slides = document.getElementsByClassName("slide");
+          if (n > slides.length) {slideIndex = 1}
+          if (n < 1) {slideIndex = slides.length}
+          for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+          }
+          slides[slideIndex - 1].style.display = "flex";
+        }
+      </script>
+      <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <footer>
+        <style>
+          footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 50px;
+          }
+          footer a {
+            color: #ff0;
+            text-decoration: none;
+            padding: 0 10px;
+          }
+        </style>
+        <p>© 2025 تمامی حقوق محفوظ است | طراحی شده توسط <a href="https://example.com">امیرعلی گرانمایه</a></p>
+        <p>
+          <a href="./index.html">خانه</a> | 
+          <a href="./tamas ba ma.html">تماس با ما</a>
+        </p>
+      </footer>
+     
+
+    <script>
+      // لیست دانش‌آموزان
+      var studentNames = [
+          "محمد ضیا الدینی", "حسن طهمورسی", "علی عرب نزاد", "ارشیا عزیز زاده", "بردیا عسکریان",
+          "محمدمهدی علیزاده", "حسن فدایی", "سپهر فکوری", "امیرعلی قرایی", "حسین قربانی",
+          "امیرعباس قطبی", "پارسا قنبری", "کیان کاراموزیان", "ابوالفضل کارگر", "ابتین کاظمی",
+          "عکی کروکی", "علیرضا کریمی", "رادین کوشش", "محمد مهدی کهندل", "امیرعلی گرانمایه",
+          "مهراد گرگانی", "ارشام لاری", "امین مالکی", "رادین محسنی", "متین محمدی", "سام محمودی"
+      ];
+  
+      // گرفتن شماره دانش‌آموز از localStorage
+      var studentNumber = localStorage.getItem('studentNumber');
+  
+      // تبدیل شماره به نام دانش‌آموز
+      var studentName = studentNames[studentNumber - 1] || "مهمان";
+  
+      // نمایش نام در صفحه اصلی
+      document.getElementById('student-name').textContent = studentName;
+  
+      // تابع برای ذخیره نام کاربر هنگام ورود به چت
+      function goToChat() {
+          localStorage.setItem('chatUsername', studentName);
+          window.location.href = "chat.html"; // انتقال به صفحه چت
+      }
+  
+    </script>
+    
+</body>
+</html>

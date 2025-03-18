@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./main_css.css">
+    <link rel="stylesheet" href="./bootstap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: aqua;">
+    <div id="backgrand_heder">
+    <nav class="navbar navbar-expand-lg backgrand_heder">
+
+        <div class="container" >
+        <!-- <a href="" class="navbar-brand"><img src="./asset/person-fill.svg" alt=""></a> -->
+        <a style=" font-size: x-large; color: rgb(0, 0, 0);" href="" class="navbar-brand"><i class="bi bi-person"></i></a>
+       <A class="navbbar-band" type="button" data-bs-target="#navmenu" style=" font-size: x-large; color: rgb(0, 0, 0);"><i class="bi bi-list-ul"></i></A>
+        <div class="collapse-navbar-collapse" id="navmenu"></div>
+        <ul class="navbar-nav ms-auto">
+          
+            <li class="nav-item " style="text-align: center;">
+   <img src="./icone.jpg"  class="logo">
+</li>
+
+
+        </ul>
+        </div>
+    </nav>
+</div>
+</div>
+    <p class="vorod " >! <span id="student-name"></span> خوش امدی </p>
+    <hr>
+    <h1 style="text-align: center; color: rgb(197, 111, 223);">  گیمتو انتخاب کن</h1>
+    <section class="p-5 ">
+        <div class="container">
+            <div class="row text-center fontabc">
+                <div class="col">
+                    <div class="card  text-light">
+                       <a href="./games/draft/draft_index.html"> <div class="card-body cards text-center">
+                            <div class="h1 mb3">
+                                <i class="bi bi-joystick"></i>
+                            </div>
+                            <h3 class="">درفت</h3>
+                           
+                        </div></a>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card  text-light">
+                        <a href=""><div class="card-body cards text-center">
+                            <div class="h1 mb3">
+                                <i class="bi bi-controller"></i>
+                            </div>
+                            <h3 class="card-title">!غیرفعال</h3>
+                            
+                            
+                        </div></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        // آرایه‌ای برای ذخیره نام دانش‌آموزان
+        var studentNames = [
+            "محمد ضیا الدینی", "حسن طهمورسی", "علی عرب نزاد", "ارشیا عزیز زاده", "بردیا عسکریان(عسکر مرغون)",
+            "محمدمهدی علیزاده(الوزاده)", "حسن فدایی", "سپهر فکوری", "امیرعلی قرایی", "حسین قربانی",
+            "امیرعباس قطبی", "پارسا قنبری", "کیان کاراموزیان", "ابوالفضل کارگر", "ابتین کاظمی",
+            "عکی کروکی(کلوخی)", "علیرضا کریمی", "رادین کوشش", "محمد مهدی کهندل(کهن کرم)", "امیرعلی گرانمایه(ادمین)",
+            "مهراد گرگانی", "ارشام لاری", "امین مالکی", "رادین محسنی", "متین محمدی",
+            "سام محمودی"
+        ];
+
+        // بازیابی شماره دانش‌آموز از localStorage
+        var studentNumber = localStorage.getItem('studentNumber');
+
+        // تبدیل شماره دانش‌آموز به نام و ذخیره در متغیر
+        var studentName = studentNames[studentNumber - 1];
+
+        // نمایش نام دانش‌آموز در صفحه
+        document.getElementById('student-name').textContent = studentName;
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برنامه های درسی</title>
+    <link rel="stylesheet" href="./main_css.css">
+    <link rel="stylesheet" href="./bootstap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body style="background-color:blueviolet">
+    <div id="backgrand_heder">
+
+        <!-- <header>
+     <nav>
+        <li>
+            
+            <img src="../../Bazi_Dooni_Icon_512x512.png" alt="" class="logo">
+            <div class="vorod">
+        <a href="" >ورود</a>
+    </div>
+    </li>
+    </nav>
+        </header> -->
+        <nav class="navbar navbar-expand-lg backgrand_heder">
+
+            <div class="container" >
+            <!-- <a href="" class="navbar-brand"><img src="./asset/person-fill.svg" alt=""></a> -->
+            <a style=" font-size: x-large; color: rgb(0, 0, 0);" href="" class="navbar-brand"><i class="bi bi-person"></i></a>
+           <A class="navbbar-band" type="button" data-bs-target="#navmenu" style=" font-size: x-large; color: rgb(0, 0, 0);"><i class="bi bi-list-ul"></i></A>
+            <div class="collapse-navbar-collapse" id="navmenu"></div>
+            <ul class="navbar-nav ms-auto">
+            
+              
+                
+                <li class="nav-item " style="text-align: center;">
+                
+       <img src="./icone.jpg"  class="logo">
+    </li>
+   
+   </ul>
+            <!-- <ul class="navbar-nav ms-auto" style="text-align: center; " >
+                <li class="nav-item " style="text-align: center;">
+                  
+                </li>
+            </ul> -->
+            </div>
+        </nav>
+    </div>
+   
+  <div style="background-color: rgb(244, 127, 255); text-align: center;  width: 40%; border-radius: 30px; margin-left: 30%;">
+    <p style="font-size: x-large;">کلاس 804</p>
+    
+  </div>
+  <hr>
+    <h2 style="text-align: center; border-radius: 20px; ">برنامه های درسی</h2>
+    <div class="slider">
+        <div class="slides">
+          <div class="slide" style="border-radius: 20px;"> 
+            
+            <img src="./barname.png" alt="تصویر 1"></div>
+          <div class="slide" style="border-radius: 20px;"><img src="./amthan.png" alt="تصویر 2"></div>
+          <div class="slide" style="border-radius: 20px;"><img src="./bodgr bandy.png" alt="تصویر 3"></div>
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      </div>
+      <hr>
+      <style>
+        .slider {
+          position: relative;
+          max-width: 70%;
+          margin: auto;
+        }
+        .slides {
+          display: flex;
+          overflow: hidden;
+          justify-content: center;
+          align-items: center;
+        }
+        .slide {
+          min-width: 100%;
+          transition: 0.5s;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .slide img {
+          max-width: 100%;
+          max-height: 80vh;
+        }
+        .prev, .next {
+          cursor: pointer;
+          position: absolute;
+          top: 50%;
+          width: auto;
+          padding: 16px;
+          margin-top: -22px;
+          color: white;
+          font-weight: bold;
+          font-size: 18px;
+          transition: 0.6s ease;
+          border-radius: 0 3px 3px 0;
+          user-select: none;
+        }
+        .next {
+          right: 0;
+          border-radius: 3px 0 0 3px;
+        }
+        .prev:hover, .next:hover {
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+        @media (max-width: 768px) {
+          .slider {
+            max-width: 100%;
+          }
+          .slide img {
+            max-height: 60vh;
+          }
+        }
+      </style>
+      <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+      
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+      
+        function showSlides(n) {
+          let i;
+          let slides = document.getElementsByClassName("slide");
+          if (n > slides.length) {slideIndex = 1}
+          if (n < 1) {slideIndex = slides.length}
+          for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+          }
+          slides[slideIndex - 1].style.display = "flex";
+        }
+      </script>
+</body>
+</html>
