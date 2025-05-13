@@ -1,157 +1,213 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./main_css.css">
-    <link rel="stylesheet" href="./bootstap/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>ورود به کلاس</title>
-    <style>
-        .body_c {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* height: 100vh;
-            margin: 0; */
-            direction: rtl;
-        }
-        #login-container {
-            background-color: aquamarine;
-            border: 1px solid #b5ddfd;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .input-group {
-            margin-bottom: 15px;
-            width: 300;
-            height: 70px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        #login-btn {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./main_css.css">
+  <link rel="stylesheet" href="./bootstap/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <title>ورود به کلاس</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0f0f0f;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 1100px;
+      height: 1100px;
+    }
+
+    .ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spin 5s linear infinite; /* کاهش سرعت چرخش */
+      z-index: -1;
+    }
+
+    .ring svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .ring1 {
+      width: 950px;
+      height: 950px;
+      animation-duration: 8s;
+      filter: drop-shadow(0px 0px 20px #ff00cc);
+    }
+
+    .ring2 {
+      width: 930px;
+      height: 930px;
+      animation-duration: 7.5s;
+      animation-direction: reverse;
+      filter: drop-shadow(0px 0px 20px #00ffff);
+    }
+
+    .ring3 {
+      width: 910px;
+      height: 910px;
+      animation-duration: 7s;
+      filter: drop-shadow(0px 0px 20px #ffff00);
+    }
+
+    path {
+      fill: none;
+      stroke-width: 0.8; /* خطوط بسیار باریک‌تر */
+      stroke-linecap: round;
+      filter: blur(0.8px) brightness(2);
+    }
+
+    .ring1 path {
+      stroke: #ff00cc;
+    }
+
+    .ring2 path {
+      stroke: #00ffff;
+    }
+
+    .ring3 path {
+      stroke: #ffff00;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    .login-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 280px;
+      padding: 30px;
+      background: rgba(0,0,0,0.8);
+      border-radius: 20px;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      backdrop-filter: blur(6px);
+    }
+
+    .login-box h2 {
+      color: #fff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      border-radius: 8px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background: linear-gradient(to right, #ff00cc, #ffff00);
+      border-radius: 8px;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body style="background-color: rgb(230, 0, 255);">
-    <div id="backgrand_heder">
+<body style="direction: rtl;">
 
-        <!-- <header>
-     <nav>
-        <li>
-            
-            <img src="../../Bazi_Dooni_Icon_512x512.png" alt="" class="logo">
-            <div class="vorod">
-        <a href="" >ورود</a>
+  <div class="container">
+
+    <div class="ring ring1">
+      <svg viewBox="0 0 200 200">
+        <path d="M100,20 C170,10 190,50 200,100 C210,150 190,190 100,180 C10,170 20,120 30,80 C40,40 80,30 100,20 Z"/>
+      </svg>
     </div>
-    </li>
-    </nav>
-        </header> -->
-        <nav class="navbar navbar-expand-lg backgrand_heder">
 
-            <div class="container" >
-            <!-- <a href="" class="navbar-brand"><img src="./asset/person-fill.svg" alt=""></a> -->
-            <a style=" font-size: x-large; color: rgb(0, 0, 0);" href="" class="navbar-brand"><i class="bi bi-person"></i></a>
-           <A class="navbbar-band" type="button" data-bs-target="#navmenu" style=" font-size: x-large; color: rgb(0, 0, 0);"><i class="bi bi-list-ul"></i></A>
-            <div class="collapse-navbar-collapse" id="navmenu"></div>
-            <ul class="navbar-nav ms-auto">
-            
-              
-                
-                <li class="nav-item " style="text-align: center;">
-                
-       <img src="./icone.jpg"  class="logo">
-    </li>
-   
-   </ul>
-            <!-- <ul class="navbar-nav ms-auto" style="text-align: center; " >
-                <li class="nav-item " style="text-align: center;">
-                  
-                </li>
-            </ul> -->
+    <div class="ring ring2">
+      <svg viewBox="0 0 200 200">
+        <path d="M100,25 C160,15 180,60 190,100 C200,140 180,180 100,170 C20,160 30,110 40,80 C50,50 90,35 100,25 Z"/>
+      </svg>
+    </div>
+
+    <div class="ring ring3">
+      <svg viewBox="0 0 200 200">
+        <path d="M100,30 C150,20 170,70 180,100 C190,130 170,170 100,160 C30,150 40,100 50,80 C60,60 100,40 100,30 Z"/>
+      </svg>
+    </div>
+
+    <div class="login-box">
+      <h2>ورود</h2>
+      <div class="body_c"> 
+        <div id="login-container">
+            <div class="input-group">
+                <label  for="student-number" style="color: gray;">شماره لیست دانش‌آموزی:</label>
+                <select id="student-number"style="background-color: dimgrey;" >
+                    <option value="" >شماره خود را انتخاب کنید</option>
+                    <!-- Dynamically create options from 1 to 26 -->
+                    <script>
+                        for (var i = 1; i <= 26; i++) {
+                          if(i !=3){
+                            document.write('<option value="' + i + '">' + i + '</option>');
+                          }
+                        }
+                    </script>
+                </select>
             </div>
-        </nav>
-    </div>
-   
-  <div style="background-color: rgb(244, 127, 255); text-align: center;  width: 40%; border-radius: 30px; margin-left: 30%;">
-    <p style="font-size: x-large;">کلاس 804</p>
-    </div>
-        <!-- <ul class="navbar-nav ms-auto" style="text-align: center; " >
-            <li class="nav-item " style="text-align: center;">
-              
-            </li>
-        </ul> -->
-<!-- <div style="background-color: rgb(244, 127, 255); text-align: center;  width: 40%; border-radius: 30px; margin-left: 30%;">
-<p style="font-size: x-large;">کلاس 804</p> -->
-<!-- <h1 style="text-align: center; color: darkviolet;">به سایت کلاس 804 خوش امدی</h1> -->
-<p></p>
-<hr>
-   <div class="body_c"> 
-    <div id="login-container">
-        <div class="input-group">
-            <label  for="student-number">شماره لیست دانش‌آموزی:</label>
-            <select id="student-number">
-                <option value="">شماره خود را انتخاب کنید</option>
-                <!-- Dynamically create options from 1 to 26 -->
-                <script>
-                    for (var i = 1; i <= 26; i++) {
-                        document.write('<option value="' + i + '">' + i + '</option>');
-                    }
-                </script>
-            </select>
+            <div class="input-group">
+                <label for="password" style="color: gray;">رمز عبور:</label>
+                <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید">
+            </div>
+            <button id="login-btn" style="background-color: cornflowerblue;">ورود</button>
         </div>
-        <div class="input-group">
-            <label for="password">رمز عبور:</label>
-            <input type="password" id="password" placeholder="رمز عبور خود را وارد کنید">
-        </div>
-        <button id="login-btn" style="background-color: cornflowerblue;">ورود</button>
     </div>
-</div>
-    <script>
-        // آرایه‌ای برای ذخیره رمز عبور هر دانش‌آموز
-        var passwords = [
-            "mamdz1583761", "hsnt1423658", "arb11358547", "afi15521", "aht156214",
-            "advs1895223", "acf15224522", "ghj985521", "hgcd58952", "ahad22596226",
-            "ammdu158615", "ksfh215623", "lhsf4521563", "axg123556", "ash135859",
-            "ght24552552", "ak2011ak", "afh52221255", "afad25879884", "amirali138985",
-            "af12557885", "tec1682545", "asf12554578", "afsf7518514", "afjf8554552",
-            "asy2585521"
-        ];
+   </div>
+  <script>
+    // آرایه‌ای برای ذخیره رمز عبور هر دانش‌آموز
+    var passwords = [
+        "mamdz1583761", "hsnt1423658", "arb11358547", "afi15521", "aht156214",
+        "advs1895223", "acf15224522", "ghj985521", "hgcd58952", "ahad22596226",
+        "ammdu158615", "ksfh215623", "lhsf4521563", "axg123556", "ash135859",
+        "ght24552552", "ak2011ak", "afh52221255", "afad25879884", "amirali138985",
+        "af12557885", "tec1682545", "asf12554578", "afsf7518514", "afjf8554552",
+        "asy2585521"
+    ];
 
-        document.getElementById('login-btn').addEventListener('click', function() {
-            var studentNumber = document.getElementById('student-number').value;
-            var password = document.getElementById('password').value;
+    document.getElementById('login-btn').addEventListener('click', function() {
+        var studentNumber = document.getElementById('student-number').value;
+        var password = document.getElementById('password').value;
 
-            if (studentNumber && password) {
-                // بررسی رمز عبور
-                if (password === passwords[studentNumber - 1]) {
-                    // ذخیره شماره دانش‌آموز در localStorage
-                    localStorage.setItem('studentNumber', studentNumber);
+        if (studentNumber && password) {
+            // بررسی رمز عبور
+            if (password === passwords[studentNumber - 1]) {
+                // ذخیره شماره دانش‌آموز در localStorage
+                localStorage.setItem('studentNumber', studentNumber);
 
-                    // انتقال به صفحه اصلی
-                    window.location.href = 'index-main.html';
-                } else {
-                    alert('رمز عبور نادرست است.');
-                }
+                // انتقال به صفحه اصلی
+                window.location.href = 'index-main.html';
             } else {
-                alert('لطفاً شماره دانش‌آموز و رمز عبور را وارد کنید.');
+                alert('رمز عبور نادرست است.');
             }
-        });
-    </script>
+        } else {
+            alert('لطفاً شماره دانش‌آموز و رمز عبور را وارد کنید.');
+        }
+    });
+</script>
 </body>
 </html>
