@@ -4,209 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>صفحه اصلی</title>
-  <!-- اتصال به فایل‌های CSS خارجی -->
+  <!-- لینک به فایل CSS جدا شده -->
   <link rel="stylesheet" href="./main_css.css">
+  <!-- فایل‌های بوتس‌ترپ و آیکون‌ها -->
   <link rel="stylesheet" href="./bootstap/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  
-  <style>
-    /* استایل‌های پایه صفحه */
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Vazirmatn', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
-    
-    /* بوم پس‌زمینه (Canvas) */
-    #backgroundCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -100;
-      background-color: #000;
-    }
-    
-    /* ناوبار سایبرپانکی به روز شده */
-    .cyber-navbar {
-      background: rgba(0, 0, 0, 0.85);
-      border-bottom: 2px solid #6a00f4;
-      box-shadow: 0 0 15px #6a00f4;
-      padding: 10px 20px;
-    }
-    .cyber-navbar .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-    }
-    .navbar-brand {
-      color: #6a00f4 !important;
-      font-size: 1.8rem;
-      text-shadow: 0 0 5px #6a00f4;
-    }
-    /* متن کلاس به صورت مرکزی در هدر و انیمیشنی */
-    .class-info {
-      font-size: 1.8rem;
-      color: #00ffff;
-      text-shadow: 0 0 5px #00ffff;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: floatEffect 3s ease-in-out infinite;
-    }
-    @keyframes floatEffect {
-      0% { transform: translate(-50%, 0) scale(1); }
-      50% { transform: translate(-50%, -10px) scale(1.1); }
-      100% { transform: translate(-50%, 0) scale(1); }
-    }
-    .navbar-toggler {
-      border: none;
-      outline: none;
-    }
-    .navbar-toggler i {
-      font-size: x-large;
-      color: #00ffff;
-    }
-    .nav-item a {
-      color: #00ffff !important;
-      font-size: 1rem;
-      text-shadow: 0 0 5px #00ffff;
-    }
-    
-    /* انیمیشن نمایش نام دانش‌آموز */
-    .vorod {
-      font-size: 2.5em;
-      text-align: center;
-      margin: 20px 0;
-      animation: neonPulse 1.5s ease-in-out infinite alternate;
-    }
-    @keyframes neonPulse {
-      from { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff; }
-      to { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff; }
-    }
-    
-    /* استایل کارت‌های امکانات */
-    .cards {
-      background: rgba(26, 26, 26, 0.9);
-      border-radius: 25px;
-      border: 2px solid #6a00f4;
-      box-shadow: 0 0 15px #6a00f4;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-      margin-bottom: 20px;
-    }
-    .cards:hover {
-      transform: scale(1.05);
-    }
-    .card-body {
-      position: relative;
-      overflow: hidden;
-    }
-    .card-body::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg, #6a00f4, #00ffff, #6a00f4);
-      animation: shine 5s linear infinite;
-      opacity: 0.2;
-      transform: rotate(45deg);
-    }
-    @keyframes shine {
-      0% { transform: translateX(0) rotate(45deg); }
-      100% { transform: translateX(100%) rotate(45deg); }
-    }
-    
-    /* اسلایدر اطلاعیه‌ها */
-    .section-title {
-      text-align: center;
-      font-size: 2em;
-      padding: 10px;
-      margin: 20px 0;
-      border-bottom: 2px solid #6a00f4;
-      text-shadow: 0 0 10px #6a00f4;
-    }
-    .slider {
-      position: relative;
-      max-width: 70%;
-      margin: auto;
-      border: 2px solid #00ffff;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 0 15px #00ffff;
-    }
-    .slides {
-      display: flex;
-      overflow: hidden;
-      justify-content: center;
-      align-items: center;
-    }
-    .slide {
-      min-width: 100%;
-      transition: 0.5s;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .slide img {
-      max-width: 100%;
-      max-height: 80vh;
-      border-radius: 20px;
-      filter: brightness(1.2);
-    }
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      width: auto;
-      padding: 16px;
-      margin-top: -22px;
-      color: #fff;
-      font-weight: bold;
-      font-size: 18px;
-      transition: 0.6s ease;
-      border-radius: 0 3px 3px 0;
-      user-select: none;
-      background: linear-gradient(45deg, #6a00f4, #00ffff);
-    }
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
-    .prev:hover, .next:hover {
-      background-color: rgba(106, 0, 244, 0.8);
-    }
-    
-    /* فوتر */
-    footer {
-      background-color: #111;
-      color: #fff;
-      text-align: center;
-      padding: 40px;
-      border-top: 2px solid #6a00f4;
-      box-shadow: 0 -5px 10px #6a00f4;
-    }
-    footer a {
-      color: #00ffff;
-      text-decoration: none;
-      padding: 0 10px;
-    }
-    
-    /* واکنش‌گرا */
-    @media (max-width: 768px) {
-      .class-info {
-        font-size: 1.5rem;
-      }
-      .slider { max-width: 100%; }
-    }
-  </style>
+  <link rel="stylesheet" href="./CSS.CSS">
   
   <!-- Yektanet Analytics Script -->
   <script>
@@ -220,26 +23,24 @@
           s = e.createElement("script");
       s.id = "ua-script-pYLi4KpW"; 
       s.dataset.analyticsobject = n;
-      s.async = 1; 
-      s.type = "text/javascript";
+      s.async = 1; s.type = "text/javascript";
       s.src = "https://cdn.yektanet.com/rg_woebegone/scripts_v3/pYLi4KpW/rg.complete.js?v=" + r, 
       c.parentNode.insertBefore(s, c);
     }(window, document, "yektanet");
   </script>
-  
 </head>
 <body id="body">
   <!-- بوم پس‌زمینه -->
   <canvas id="backgroundCanvas"></canvas>
   
-  <!-- ناوبار به روز شده: کلاس در وسط هدر -->
+  <!-- هدر / ناوبار -->
   <div id="backgrand_heder">
     <nav class="navbar navbar-expand-lg cyber-navbar">
       <div class="container">
         <a href="#" class="navbar-brand">
           <i class="bi bi-person"></i>
         </a>
-        <!-- متن کلاس دقیقاً در مرکز -->
+        <!-- متن کلاس به صورت مرکزی و با انیمیشن -->
         <div class="class-info">کلاس 804</div>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
           <i class="bi bi-list-ul"></i>
@@ -247,7 +48,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navmenu">
           <ul class="navbar-nav">
             <li class="nav-item text-center">
-              <img src="./icone.jpg" alt="Logo" class="logo" style="border-radius:50%; width:50px; border:2px solid #6a00f4;">
+              <img src="./icone.jpg" alt="Logo" class="logo">
             </li>
           </ul>
         </div>
@@ -343,14 +144,16 @@
   
   <!-- فوتر -->
   <footer>
-    <p>© 2025 تمامی حقوق محفوظ است | طراحی شده توسط <a href="https://example.com">امیرعلی گرانمایه</a></p>
+    <p>© 2025 تمامی حقوق محفوظ است | طراحی شده توسط 
+      <a href="https://example.com">امیرعلی گرانمایه</a>
+    </p>
     <p>
       <a href="./index.html">خانه</a> |
-      <a href="./tamas%20ba%20ma.html">تماس با ما</a>
+      <a href="./tamas ba ma.html">تماس با ما</a>
     </p>
   </footer>
   
-  <!-- اسکریپت اسلایدر -->
+  <!-- اسکریپت‌های اسلایدر -->
   <script>
     let slideIndex = 1;
     showSlides(slideIndex);
@@ -390,6 +193,7 @@
     }
   </script>
   
+  <!-- اسکریپت بوتس‌ترپ -->
   <script src="./bootstap/bootstrap.bundle.min.js"></script>
   
   <!-- اسکریپت انیمیشن پس‌زمینه: ریسمان‌های نئونی -->
@@ -410,15 +214,25 @@
     }
     
     class Rope {
-      constructor() { this.reset(); }
+      constructor() {
+        this.reset();
+      }
       
       reset() {
         const edge = Math.floor(Math.random() * 4);
-        if (edge === 0) { this.x = Math.random() * canvas.width; this.y = 0; }
-        else if (edge === 1) { this.x = canvas.width; this.y = Math.random() * canvas.height; }
-        else if (edge === 2) { this.x = Math.random() * canvas.width; this.y = canvas.height; }
-        else { this.x = 0; this.y = Math.random() * canvas.height; }
-        
+        if (edge === 0) { 
+          this.x = Math.random() * canvas.width; 
+          this.y = 0; 
+        } else if (edge === 1) { 
+          this.x = canvas.width; 
+          this.y = Math.random() * canvas.height; 
+        } else if (edge === 2) { 
+          this.x = Math.random() * canvas.width; 
+          this.y = canvas.height; 
+        } else { 
+          this.x = 0; 
+          this.y = Math.random() * canvas.height; 
+        }
         this.baseAngle = Math.random() * Math.PI * 2;
         this.phase = Math.random() * Math.PI * 2;
         this.phaseSpeed = Math.random() * 0.05 + 0.01;
