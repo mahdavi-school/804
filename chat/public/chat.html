@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>چت انلاین</title>
+  <style>
+    body {
+      background: #121212;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+    }
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .header {
+      background: #1a1a1a;
+      padding: 15px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      background: #181818;
+    }
+    .msg-item {
+      margin-bottom: 15px;
+      border-left: 4px solid #0f9d58;
+      padding-left: 10px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .system {
+      color: #ff4444;
+      font-style: italic;
+    }
+    .username {
+      font-weight: bold;
+    }
+    .admin {
+      color: #FFD700;
+    }
+    .controls {
+      display: flex;
+      padding: 10px;
+      background: #1a1a1a;
+    }
+    #msg {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      background: #181818;
+      color: #fff;
+    }
+    button {
+      padding: 10px;
+      margin-left: 10px;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.8;
+    }
+    .btn-mute { background: #ff4444; color: #fff; }
+    .btn-unmute { background: #007bff; color: #fff; }
+    .btn-reply { background: #007bff; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="header">چت انلاین</div>
+    <div id="messages"></div>
+    <div class="controls">
+      <input type="text" id="msg" placeholder="پیامت را بنویس..." />
+      <button id="sendBtn">ارسال</button>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    // اگر نام کاربری در localStorage موجود نیست، از کاربر بخواه وارد کند
+    let username = localStorage.getItem("chatUsername");
+    if (!username) {
+      username = prompt("نام کاربری را وارد کن:", "کاربر ناشناس");
+      localStorage.setItem("chatUsername", username);
+    }
+
+    const socket = io({ query: { username: username } });
+    const messagesDiv = document.getElementById("messages");
+    const msgInput = document.getElementById("msg");
+    const sendBtn = document.getElementById("sendBtn");
+
+    function renderMessage(msg) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "msg-item";
+
+      // پیام‌های سیستمی (System messages)
+      if (msg.system) {
+        msgDiv.textContent = msg.text;
+        msgDiv.classList.add("system");
+        messagesDiv.appendChild(msgDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        return;
+      }
+
+      // نمایش نام فرستنده؛ اگر ادمین است، با آیکون تاج نمایش داده شود
+      const userSpan = document.createElement("span");
+      userSpan.className = "username";
+      if (msg.username === "امیرعلی گرانمایه") {
+        userSpan.classList.add("admin");
+        userSpan.textContent = "👑 " + msg.username;
+      } else {
+        userSpan.textContent = msg.username;
+      }
+      msgDiv.appendChild(userSpan);
+
+      // در صورت وجود reply (پاسخ به)، آن را نمایش می‌دهد
+      if (msg.replyTo) {
+        const replySpan = document.createElement("span");
+        replySpan.style.color = "#007bff";
+        replySpan.style.marginLeft = "5px";
+        replySpan.textContent = "↩ پاسخ به: " + msg.replyTo;
+        msgDiv.appendChild(replySpan);
+      }
+
+      const textSpan = document.createElement("span");
+      textSpan.textContent = " : " + msg.text;
+      msgDiv.appendChild(textSpan);
+
+      // اگر کاربر لاگین شده ادمین است (یعنی نام کاربری در localStorage برابر "امیرعلی گرانمایه" است)
+      if (localStorage.getItem("chatUsername") === "امیرعلی گرانمایه" && msg.username !== "امیرعلی گرانمایه") {
+        // دکمه میوت
+        const muteBtn = document.createElement("button");
+        muteBtn.className = "btn-mute";
+        muteBtn.textContent = "🚫 میوت";
+        muteBtn.onclick = () => {
+          socket.emit("muteUser", msg.username);
+        };
+        msgDiv.appendChild(muteBtn);
+
+        // دکمه آن‌میوت
+        const unmuteBtn = document.createElement("button");
+        unmuteBtn.className = "btn-unmute";
+        unmuteBtn.textContent = "✅ آن‌میوت";
+        unmuteBtn.onclick = () => {
+          socket.emit("unmuteUser", msg.username);
+        };
+        msgDiv.appendChild(unmuteBtn);
+      }
+
+      // دکمه ریپلای برای همه
+      const replyBtn = document.createElement("button");
+      replyBtn.className = "btn-reply";
+      replyBtn.textContent = "↩ پاسخ";
+      replyBtn.onclick = () => {
+        msgInput.value = `@${msg.username}: `;
+        msgInput.focus();
+      };
+      msgDiv.appendChild(replyBtn);
+
+      messagesDiv.appendChild(msgDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    socket.on("message", (msg) => {
+      renderMessage(msg);
+    });
+
+    sendBtn.onclick = () => {
+      const text = msgInput.value;
+      if (text.trim() === "") return;
+
+      // بررسی اینکه آیا پیام شامل ریپلای است (اگر متن با @ شروع شود)
+      let replyTo = null;
+      if (text.startsWith("@")) {
+        const parts = text.split(":");
+        if (parts.length > 1) {
+          replyTo = parts[0].replace("@", "").trim();
+        }
+      }
+      socket.emit("chatMessage", { text: text, replyTo: replyTo });
+      msgInput.value = "";
+    };
+
+    // امکان ارسال پیام با زدن دکمه Enter
+    msgInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        sendBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
